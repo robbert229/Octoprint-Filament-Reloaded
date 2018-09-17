@@ -1,30 +1,32 @@
-# OctoPrint-FilamentReloaded
+# OctoPrint-FilamentReloaded-Server
+This plugin is a fork of the the original [Octoprint-FilamentReloaded](https://github.com/kontakt/Octoprint-Filament-Reloaded)
+ which is in turn a fork of [Octoprint-Filament](https://github.com/MoonshineSG/Octoprint-Filament). I forked the plugin because I wanted to take a different approach to sensing filament.
 
-[OctoPrint](http://octoprint.org/) plugin that integrates with a filament sensor hooked up to a Raspberry Pi GPIO pin and allows the filament spool to be changed during a print if the filament runs out.
+If you are running octoprint on a raspberry pi this plugin is not for you. If you are instead running octoprint on an old linux desktop, or have a more advanced setup this plugin may be of value to you.  
 
-Future developments are planned to include multiple filament sensors and pop-ups.
+## Required Hardware
 
-Initial work based on the [Octoprint-Filament](https://github.com/MoonshineSG/Octoprint-Filament) plugin by MoonshineSG.
+### Linux Computer
 
-## Required sensor
+This plugin
 
-Using this plugin requires a filament sensor. The code is set to use the Raspberry Pi's internal Pull-Up resistors, so the switch should be between your detection pin and a ground pin.
+### Arduino
 
-This plugin is using the GPIO.BOARD numbering scheme, the pin being used needs to be selected by the physical pin number.
+The arduino is used to perform the GPIO, and in tern exposes that to a linux machine over the serial connection.
+
+![Arduino](./docs/arduino.png)
+
+
 
 ## Features
 
-* Configurable GPIO pin.
-* Debounce noisy sensors.
-* Support norbally open and normally closed sensors.
-* Execution of custom GCODE when out of filament detected.
-* Optionally pause print when out of filament.
-
 ## Installation
-
-* Install via the bundled [Plugin Manager](https://github.com/foosel/OctoPrint/wiki/Plugin:-Plugin-Manager).
-* Manually using this URL: https://github.com/kontakt/Octoprint-Filament-Reloaded/archive/master.zip
 
 ## Configuration
 
-After installation, configure the plugin via OctoPrint Settings interface.
+
+## Why
+
+I use a *retired* nas running [coreos](https://coreos.com) to run [octoprint](https://octoprint.org/). It runs multiple instances inside of [docker](https://www.docker.com/) containers using [docker-octoprint](https://github.com/QuantumObject/docker-octoprint). 
+
+Linux desktops, and media servers do not have any GPIO and as such I needed a way of utilizing GPIO over USB. This solution is very beta.

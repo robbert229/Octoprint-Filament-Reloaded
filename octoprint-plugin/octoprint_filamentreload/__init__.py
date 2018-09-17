@@ -3,8 +3,10 @@ from __future__ import absolute_import
 
 import octoprint.plugin
 from octoprint.events import Events
-import RPi.GPIO as GPIO
+from pyfirmata import Arduino, util
 from time import sleep
+
+device = "/dev/ttyACM0"
 
 
 class FilamentReloadedPlugin(octoprint.plugin.StartupPlugin,
@@ -13,10 +15,11 @@ class FilamentReloadedPlugin(octoprint.plugin.StartupPlugin,
                              octoprint.plugin.SettingsPlugin):
 
     def initialize(self):
-        self._logger.info("Running RPi.GPIO version '{0}'".format(GPIO.VERSION))
-        if GPIO.VERSION < "0.6":       # Need at least 0.6 for edge detection
-            raise Exception("RPi.GPIO must be greater than 0.6")
-        GPIO.setwarnings(False)        # Disable GPIO warnings
+        # self._logger.info("Running RPi.GPIO version '{0}'".format(GPIO.VERSION))
+        # if GPIO.VERSION < "0.6":       # Need at least 0.6 for edge detection
+        #     raise Exception("RPi.GPIO must be greater than 0.6")
+        #GPIO.setwarnings(False)        # Disable GPIO warnings
+		self.board = Arduino(device)
 
     @property
     def pin(self):
@@ -45,12 +48,7 @@ class FilamentReloadedPlugin(octoprint.plugin.StartupPlugin,
     def _setup_sensor(self):
         if self.sensor_enabled():
             self._logger.info("Setting up sensor.")
-            if self.mode == 0:
-                self._logger.info("Using Board Mode")
-                GPIO.setmode(GPIO.BOARD)
-            else:
-                self._logger.info("Using BCM Mode")
-                GPIO.setmode(GPIO.BCM)
+            self.board.digital()
             self._logger.info("Filament Sensor active on GPIO Pin [%s]"%self.pin)
             GPIO.setup(self.pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         else:

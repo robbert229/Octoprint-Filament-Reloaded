@@ -1,0 +1,39 @@
+syntax = "proto3";
+package api;
+
+import "google/api/annotations.proto";
+
+option go_package = "pb";
+
+message ListenRequest {}
+
+enum PinState {
+    INVALID = 0;
+    LOW = 1;
+    HIGH = 2;
+}
+
+message ListenResponse {
+    int32 pin = 1;
+    PinState state = 2;
+}
+
+message CheckRequest {
+    int32 pin = 1;
+}
+
+message CheckResponse {
+    PinState state = 1;
+}
+
+service Listen {
+    rpc Listen(ListenRequest) returns (stream ListenResponse) {
+
+    }
+
+    rpc Check(CheckRequest) returns (CheckResponse) {
+        option (google.api.http) = {
+            get: "/api/check/{pin}"
+        };
+    }
+}
