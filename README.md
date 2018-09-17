@@ -16,8 +16,6 @@ The arduino is used to perform the GPIO, and in tern exposes that to a linux mac
 
 ![Arduino](./docs/arduino.png)
 
-
-
 ## Features
 
 ## Installation
@@ -30,3 +28,7 @@ The arduino is used to perform the GPIO, and in tern exposes that to a linux mac
 I use a *retired* nas running [coreos](https://coreos.com) to run [octoprint](https://octoprint.org/). It runs multiple instances inside of [docker](https://www.docker.com/) containers using [docker-octoprint](https://github.com/QuantumObject/docker-octoprint). 
 
 Linux desktops, and media servers do not have any GPIO and as such I needed a way of utilizing GPIO over USB. This solution is very beta.
+
+## License
+
+All of the python code written is licensed under GPL-3.0, while the protobuf code, and go code is licensed under MIT. I intend to replace the original "borrowed" code eventually, and when I do I will license the new python code under MIT as well.
